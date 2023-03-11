@@ -1,6 +1,6 @@
 #include <string>
 
-template<typename T, typename U = int>
+template<typename T>
 class OtherComparisionOperators {
 public:
     T& that = *static_cast<T*>(this);
@@ -23,27 +23,29 @@ public:
     }
 
     //Сравнение с другим типом
+    template <typename U>
     bool operator<=(const U& other) const {
         return !(that > other);
     }
 
+    template <typename U>
     bool operator>=(const U& other) const {
         return !(that < other);
     }
 
+    template <typename U>
     bool operator==(const U& other) const {
         return !(that > other) && !(that < other);
     }
 
+    template <typename U>
     bool operator!=(const U& other) const {
         return !(that == other);
     }
-
 };
 
 class NewA: public OtherComparisionOperators<NewA>
 {
-    friend class OtherComparisionOperators;
 public:
     NewA(int a, int b) : m_a(a), m_b(b){}
 
@@ -67,6 +69,17 @@ public:
     bool operator>(const int other) const
     {
         return m_a > other;
+    }
+
+    // Операторы сравнения с double
+    bool operator<(const double other) const
+    {
+        return static_cast<int>(m_a) < other;
+    }
+
+    bool operator>(const double other) const
+    {
+        return static_cast<int>(m_a) > other;
     }
 
     // Операторы сравнения с char
@@ -99,7 +112,7 @@ private:
 class NewB : public OtherComparisionOperators<NewB>
 {
 public:
-    NewB(std::string val) : m_stringView(val){}
+    NewB(std::string_view val) : m_stringView(val){}
 
     // Операторы сравнения с NewB
     bool operator<(const NewB& other) const
@@ -124,5 +137,5 @@ public:
     }
 
 private:
-    std::string m_stringView;
+    std::string_view m_stringView;
 };
