@@ -5,24 +5,6 @@ class OtherComparisionOperators {
 public:
     T& that = *static_cast<T*>(this);
 
-    //Сравнение со схожим типом
-    bool operator<=(const T& other) const {
-        return !(that > other);
-    }
-
-    bool operator>=(const T& other) const {
-        return !(that < other);
-    }
-
-    bool operator==(const T& other) const {
-        return !(that > other) && !(that < other);
-    }
-
-    bool operator!=(const T& other) const {
-        return !(that == other);
-    }
-
-    //Сравнение с другим типом
     template <typename U>
     bool operator<=(const U& other) const {
         return !(that > other);

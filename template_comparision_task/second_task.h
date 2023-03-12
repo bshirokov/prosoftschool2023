@@ -15,53 +15,23 @@ class OtherComparisionOperators {
 public:
     T& that = *static_cast<T*>(this);
 
-    //Сравнение со схожим типом
     template <typename OtherT>
-    std::enable_if_t<any_of_v<OtherT, T>, bool>
-    operator<=(const OtherT& other) const {
+    bool operator<=(const OtherT& other) const {
         return !(that > other);
     }
 
     template <typename OtherT>
-    std::enable_if_t<any_of_v<OtherT, T>, bool>
-    operator>=(const OtherT& other) const {
+    bool operator>=(const OtherT& other) const {
         return !(that < other);
     }
 
     template <typename OtherT>
-    std::enable_if_t<any_of_v<OtherT, T>, bool>
-    operator==(const OtherT& other) const {
+    bool operator==(const OtherT& other) const {
         return !(that > other) && !(that < other);
     }
 
     template <typename OtherT>
-    std::enable_if_t<any_of_v<OtherT, T>, bool>
-    operator!=(const OtherT& other) const {
-        return !(that == other);
-    }
-
-    //Сравнение с другим типом
-    template <typename OtherT>
-    std::enable_if_t<!any_of_v<OtherT, T>, bool>
-    operator<=(const OtherT& other) const {
-        return !(that > other);
-    }
-
-    template <typename OtherT>
-    std::enable_if_t<!any_of_v<OtherT, T>, bool>
-    operator>=(const OtherT& other) const {
-        return !(that < other);
-    }
-
-    template <typename OtherT>
-    std::enable_if_t<!any_of_v<OtherT, T>, bool>
-    operator==(const OtherT& other) const {
-        return !(that > other) && !(that < other);
-    }
-
-    template <typename OtherT>
-    std::enable_if_t<!any_of_v<OtherT, T>, bool>
-    operator!=(const OtherT& other) const {
+    bool operator!=(const OtherT& other) const {
         return !(that == other);
     }
 };
